@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/TimeTrack/static/css/main.49f97dab.css",
-    "main.js": "/TimeTrack/static/js/main.76f7417d.js",
+    "main.css": "/TimeTrack/static/css/main.1d7ec3c5.css",
+    "main.js": "/TimeTrack/static/js/main.c04e5e51.js",
     "index.html": "/TimeTrack/index.html",
-    "main.49f97dab.css.map": "/TimeTrack/static/css/main.49f97dab.css.map",
-    "main.76f7417d.js.map": "/TimeTrack/static/js/main.76f7417d.js.map"
+    "main.1d7ec3c5.css.map": "/TimeTrack/static/css/main.1d7ec3c5.css.map",
+    "main.c04e5e51.js.map": "/TimeTrack/static/js/main.c04e5e51.js.map"
   },
   "entrypoints": [
-    "static/css/main.49f97dab.css",
-    "static/js/main.76f7417d.js"
+    "static/css/main.1d7ec3c5.css",
+    "static/js/main.c04e5e51.js"
   ]
 }
