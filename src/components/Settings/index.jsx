@@ -129,24 +129,23 @@ const Settings = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Mois et année</label>
-            <input 
-              type="month" 
-              className="w-full py-2 px-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-              value={yearMonth}
-              onChange={handleMonthChange}
-            />
+            <div className="flex flex-col md:flex-row items-start md:items-center space-y-2 md:space-y-0 md:space-x-4">
+              <input 
+                type="month" 
+                className="w-full py-2 px-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                value={yearMonth}
+                onChange={handleMonthChange}
+              />
+              <button 
+                onClick={handleApplyMonth}
+                className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors w-full md:w-auto whitespace-nowrap"
+              >
+                Appliquer et générer les semaines
+              </button>
+            </div>
             <p className="mt-1 text-sm text-gray-500">
               Sélectionnez le mois pour générer automatiquement les semaines
             </p>
-          </div>
-          
-          <div className="flex items-end">
-            <button 
-              onClick={handleApplyMonth}
-              className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
-            >
-              Appliquer et générer les semaines
-            </button>
           </div>
         </div>
         

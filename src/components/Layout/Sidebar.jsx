@@ -18,6 +18,14 @@ const Sidebar = ({ activeSection, onChangeSection }) => {
     return Icon ? <Icon className="w-5 h-5 mr-3" /> : null;
   };
 
+  // Gestionnaire de clic qui met à jour à la fois l'état et l'URL
+  const handleSectionChange = (section) => {
+    if (!section.disabled) {
+      onChangeSection(section);
+      window.location.hash = `#/${section}`;
+    }
+  };
+
   return (
     <div className="bg-white p-4 rounded-lg shadow">
       <nav>

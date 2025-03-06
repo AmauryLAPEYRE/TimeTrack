@@ -4,7 +4,7 @@ import ExportButton from '../Common/ExportButton';
 import { useTimeTrack } from '../../context/TimeTrackContext';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Clock, AlertTriangle } from 'lucide-react';
 
 const Timesheet = () => {
   const { 
@@ -46,6 +46,12 @@ const Timesheet = () => {
     if (activeWeekIndex < weeksOfMonth.length - 1) {
       setActiveWeek(activeWeekIndex + 1);
     }
+  };
+
+  // Récupérer la fonction onChangeSection du contexte parent
+  const goToSettings = () => {
+    // Utiliser directement la mise à jour du hash pour la navigation
+    window.location.hash = '#/settings';
   };
 
   return (
@@ -130,32 +136,60 @@ const Timesheet = () => {
             </tbody>
             <tfoot>
               <tr className="bg-gray-50">
-                <td colSpan="8" className="px-4 py-3 text-right font-medium text-gray-700">Total des heures travaillées :</td>
-                <td className="px-4 py-3 text-center font-medium text-blue-600">
-                  {decimalVersHeuresMinutes(resultats.totalHeuresTravaillees)}
+                <td colSpan="8" className="px-4 py-3 text-right font-medium text-gray-700">
+                  <div className="flex items-center justify-end">
+                    <Clock className="w-4 h-4 mr-2 text-blue-600" />
+                    <span>Total des heures travaillées :</span>
+                  </div>
+                </td>
+                <td className="px-4 py-3 text-center">
+                  <span className="font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-lg">
+                    {decimalVersHeuresMinutes(resultats.totalHeuresTravaillees)}
+                  </span>
                 </td>
                 <td></td>
               </tr>
               <tr>
-                <td colSpan="8" className="px-4 py-3 text-right font-medium text-gray-700">Heures diverses :</td>
-                <td className="px-4 py-3 text-center font-medium text-gray-600">
-                  {decimalVersHeuresMinutes(resultats.heuresDiverses)}
+                <td colSpan="8" className="px-4 py-3 text-right font-medium text-gray-700">
+                  <div className="flex items-center justify-end">
+                    <span className="w-3 h-3 rounded-full bg-gray-400 mr-2"></span>
+                    <span>Heures diverses :</span>
+                  </div>
                 </td>
-                <td></td>
+                <td className="px-4 py-3 text-center">
+                  <span className="font-medium text-gray-700 bg-gray-100 px-3 py-1 rounded-lg border border-gray-300">
+                    {decimalVersHeuresMinutes(resultats.heuresDiverses)}
+                  </span>
+                </td>
+                <td className="px-4 py-1 text-xs text-gray-500 italic">Sans majoration</td>
               </tr>
               <tr>
-                <td colSpan="8" className="px-4 py-3 text-right font-medium text-gray-700">Heures supplémentaires (+25%) :</td>
-                <td className="px-4 py-3 text-center font-medium text-indigo-600">
-                  {decimalVersHeuresMinutes(resultats.heuresSupp25)}
+                <td colSpan="8" className="px-4 py-3 text-right font-medium text-gray-700">
+                  <div className="flex items-center justify-end">
+                    <span className="w-3 h-3 rounded-full bg-indigo-500 mr-2"></span>
+                    <span>Heures supplémentaires (+25%) :</span>
+                  </div>
                 </td>
-                <td></td>
+                <td className="px-4 py-3 text-center">
+                  <span className="font-medium text-indigo-600 bg-indigo-50 px-3 py-1 rounded-lg border border-indigo-200">
+                    {decimalVersHeuresMinutes(resultats.heuresSupp25)}
+                  </span>
+                </td>
+                <td className="px-4 py-1 text-xs text-indigo-500 italic">Majoration 25%</td>
               </tr>
               <tr>
-                <td colSpan="8" className="px-4 py-3 text-right font-medium text-gray-700">Heures supplémentaires (+50%) :</td>
-                <td className="px-4 py-3 text-center font-medium text-purple-600">
-                  {decimalVersHeuresMinutes(resultats.heuresSupp50)}
+                <td colSpan="8" className="px-4 py-3 text-right font-medium text-gray-700">
+                  <div className="flex items-center justify-end">
+                    <span className="w-3 h-3 rounded-full bg-purple-500 mr-2"></span>
+                    <span>Heures supplémentaires (+50%) :</span>
+                  </div>
                 </td>
-                <td></td>
+                <td className="px-4 py-3 text-center">
+                  <span className="font-medium text-purple-600 bg-purple-50 px-3 py-1 rounded-lg border border-purple-200">
+                    {decimalVersHeuresMinutes(resultats.heuresSupp50)}
+                  </span>
+                </td>
+                <td className="px-4 py-1 text-xs text-purple-500 italic">Majoration 50%</td>
               </tr>
             </tfoot>
           </table>
@@ -164,7 +198,7 @@ const Timesheet = () => {
         <div className="p-8 text-center">
           <p className="text-gray-500">Aucune semaine disponible. Veuillez sélectionner un mois dans les paramètres.</p>
           <button 
-            onClick={() => window.location.hash = '#/settings'} 
+            onClick={goToSettings} 
             className="mt-4 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
           >
             Aller aux paramètres
@@ -203,9 +237,12 @@ const Timesheet = () => {
         </div>
       )}
       
-      <div className="mt-6 p-4 bg-yellow-50 rounded-md text-sm">
-        <p className="font-semibold mb-2">Rappel des règles :</p>
-        <ul className="list-disc pl-5 space-y-1">
+      <div className="mt-6 p-4 bg-yellow-50 rounded-md border border-yellow-200">
+        <p className="font-semibold mb-2 flex items-center text-yellow-700">
+          <AlertTriangle className="w-4 h-4 mr-2" />
+          Rappel des règles :
+        </p>
+        <ul className="list-disc pl-5 space-y-1 text-yellow-700">
           <li>Les jours avec absence exclue (CP, RTT, etc.) ne sont pas comptés dans le seuil hebdomadaire.</li>
           <li>Heures diverses : heures entre le seuil ajusté et 35h (sans majoration).</li>
           <li>Heures supplémentaires : +25% pour les 8 premières heures au-delà de 35h, +50% au-delà.</li>
