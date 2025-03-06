@@ -1,24 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import MainLayout from './components/Layout/MainLayout';
+import Dashboard from './components/Dashboard';
+import Timesheet from './components/Timesheet';
+import Settings from './components/Settings';
+import { TimeTrackProvider } from './context/TimeTrackContext';
 
 function App() {
+  const [activeSection, setActiveSection] = useState('dashboard');
+
+  // Fonction pour changer de section
+  const changeSection = (section) => {
+    setActiveSection(section);
+  };
+
+  // Rendu du contenu en fonction de la section active
+  const renderContent = () => {
+    switch (activeSection) {
+      case 'dashboard':
+        return <Dashboard />;
+      case 'timesheet':
+        return <Timesheet />;
+      case 'settings':
+        return <Settings />;
+      default:
+        return <Dashboard />;
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <TimeTrackProvider>
+      <MainLayout activeSection={activeSection} onChangeSection={changeSection}>
+        {renderContent()}
+      </MainLayout>
+    </TimeTrackProvider>
   );
 }
 

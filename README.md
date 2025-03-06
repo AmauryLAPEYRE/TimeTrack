@@ -1,70 +1,81 @@
-# Getting Started with Create React App
+# TimeTrack - Application de calcul des heures supplémentaires
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Une application web moderne pour calculer et gérer les heures supplémentaires des employés avec une interface élégante et intuitive.
 
-## Available Scripts
+## Fonctionnalités
 
-In the project directory, you can run:
+- **Calcul automatique des heures supplémentaires** selon les règles légales françaises
+- **Tableau de bord** avec visualisation des données et statistiques
+- **Feuille de temps** personnalisable pour saisir les heures travaillées
+- **Gestion des absences** (congés payés, RTT, maladie, etc.)
+- **Export Excel** des données saisies pour l'intégration avec les systèmes de paie
+- **Interface moderne** et responsive inspirée des applications professionnelles actuelles
 
-### `npm start`
+## Technologies utilisées
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- React 18
+- Tailwind CSS
+- SheetJS (pour l'export Excel)
+- Lucide React (pour les icônes)
+- Date-fns (pour la manipulation des dates)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Installation
 
-### `npm test`
+1. Clonez ce dépôt
+```bash
+git clone https://github.com/votre-nom/timetrack-app.git
+cd timetrack-app
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Installez les dépendances
+```bash
+npm install
+```
 
-### `npm run build`
+3. Lancez l'application en mode développement
+```bash
+npm start
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. Accédez à l'application sur http://localhost:3000
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Structure du projet
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- `src/components/` - Composants React organisés par fonctionnalité
+- `src/context/` - Contexte React pour la gestion de l'état global
+- `src/utils/` - Fonctions utilitaires pour les calculs et l'export
+- `src/constants/` - Constantes et données statiques
+- `public/` - Ressources statiques
 
-### `npm run eject`
+## Utilisation
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. Configurez vos informations personnelles dans l'onglet "Paramètres"
+2. Définissez la semaine de travail en sélectionnant une date de début
+3. Saisissez vos heures travaillées pour chaque jour
+4. Consultez les résultats dans le tableau de bord
+5. Exportez les données en Excel si nécessaire
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Logique de calcul
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+L'application utilise la logique suivante pour calculer les heures supplémentaires :
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. **Calcul du seuil hebdomadaire ajusté** : 
+   - 35 heures par défaut pour 5 jours travaillés (7h/jour)
+   - Les jours d'absence (CP, RTT, etc.) sont exclus du calcul
 
-## Learn More
+2. **Catégorisation des heures** :
+   - Heures normales : jusqu'au seuil ajusté
+   - Heures diverses : entre le seuil ajusté et 35h
+   - Heures supplémentaires à 25% : entre 35h et 43h
+   - Heures supplémentaires à 50% : au-delà de 43h
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Personnalisation
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Vous pouvez personnaliser différents paramètres dans l'application :
+- Heures contractuelles par jour (par défaut : 7h)
+- Seuil hebdomadaire (par défaut : 35h)
+- Seuil pour le passage à 50% (par défaut : 43h)
 
-### Code Splitting
+## Licence
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+MIT
